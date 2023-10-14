@@ -4,7 +4,6 @@ namespace BlobStorageIntegration.Api.Models;
 
 public record FileViewModel(Stream FileStream, string FileName, string ContentType);
 
-
 public class FileCreateModel
 {
     [Required]

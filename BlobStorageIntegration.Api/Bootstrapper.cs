@@ -5,10 +5,9 @@ namespace BlobStorageIntegration.Api;
 
 public static class Bootstrapper
 {
-    public static IServiceCollection AddAzureBlobService(this IServiceCollection services, IConfiguration configuration)
+    public static void AddAzureBlobService(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<BlobSettings>(configuration.GetSection(nameof(BlobSettings)));
         services.AddScoped<AzureBlobService>();
-        return services;
     }
 }

@@ -16,12 +16,6 @@ public class AzureBlobService
         _blobServiceClient = new BlobServiceClient(blobSettingsValue.ConnectionString);
     }
     
-    /// <summary>
-    ///  Upload file to Azure Blob Storage
-    /// </summary>
-    /// <param name="model"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
     public async Task<string> UploadFileAsync(FileCreateModel model, CancellationToken cancellationToken = default)
     {
         using var memoryStream = await CopyFileToMemoryStreamAsync(model.File);
@@ -31,10 +25,16 @@ public class AzureBlobService
         // If you want to use a static container name, you can bring the container name from the appsettings.json file with the IOptions interface
         
         var container = _blobServiceClient.GetBlobContainerClient(model.ContainerName);
+        
         await container.CreateIfNotExistsAsync(cancellationToken: cancellationToken);
+        
         var blobClient = container.GetBlobClient(model.BlobName);
         
         await blobClient.UploadAsync(memoryStream, true, cancellationToken);
+        
+        // You can set the metadata for the file here
+        // This will also be stored in the blob storage
+        // You can use it to store information about the file such as file size, file type, etc.
         
         await blobClient.SetHttpHeadersAsync(new BlobHttpHeaders
         {
@@ -43,30 +43,30 @@ public class AzureBlobService
         
         return blobClient.Uri.AbsoluteUri;
     }
-
-    /// <summary>
-    /// Download file from Azure Blob Storage
-    /// </summary>
-    /// <param name="uri"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    
     public async Task<FileViewModel> DownloadFileAsync(string uri , CancellationToken cancellationToken)
     {
+        // BlobUriBuilder is a built-in class from Azure.Storage.Blobs
+        // It is used to parse the blob uri into its components
         var uriBuilder = new BlobUriBuilder(new Uri(uri));
         
         var blobClient = _blobServiceClient.GetBlobContainerClient(uriBuilder.BlobContainerName).GetBlobClient(uriBuilder.BlobName);
 
+        // DownloadAsync method returns a BlobDownloadInfo object
+        // BlobDownloadInfo object contains the file stream, content type and other information about the file
+        // In this case, we are only interested in the file stream and content type
+        
         var response = await blobClient.DownloadAsync(cancellationToken);
         return new FileViewModel(response.Value.Content, response.Value.ContentType, uriBuilder.BlobName);
     }
-
-    /// <summary>
-    /// Copy file to memory stream
-    /// </summary>
-    /// <param name="file"></param>
-    /// <returns></returns>
+    
     private static async Task<MemoryStream> CopyFileToMemoryStreamAsync(IFormFile file)
     {
+        //MemoryStream is basically a stream stored in the memory instead of a physical file.
+        //It is used to store data in memory and then retrieve it later.
+        //It is mostly used with libraries that accept streams as input parameters.
+        //In this case, we are using it to copy the file to a memory stream and then upload it to Azure Blob Storage.
+        
         var memoryStream = new MemoryStream();
         await file.CopyToAsync(memoryStream);
         memoryStream.Position = 0;
