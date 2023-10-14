@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "3/luvUuV3D97Kw0l8OdLDJotyl2gHXazRA6JiusaMlE=",
+  "Source": "BlobStorageIntegration.Api",
+  "BasePath": "_content/BlobStorageIntegration.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
