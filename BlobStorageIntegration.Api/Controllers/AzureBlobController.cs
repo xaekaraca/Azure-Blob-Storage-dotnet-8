@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Security.Principal;
 using BlobStorageIntegration.Api.Models;
 using BlobStorageIntegration.Api.Services;
 using Microsoft.AspNetCore.Mvc;
