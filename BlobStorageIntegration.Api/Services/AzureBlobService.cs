@@ -24,6 +24,8 @@ public class AzureBlobService
         // In this case, I am using a dynamic container name
         // If you want to use a static container name, you can bring the container name from the appsettings.json file with the IOptions interface
         
+        NormalizeContainerName(model);
+        
         var container = _blobServiceClient.GetBlobContainerClient(model.ContainerName);
         
         await container.CreateIfNotExistsAsync(cancellationToken: cancellationToken);
@@ -43,7 +45,7 @@ public class AzureBlobService
         
         return blobClient.Uri.AbsoluteUri;
     }
-    
+
     public async Task<FileViewModel> DownloadFileAsync(string uri , CancellationToken cancellationToken)
     {
         // BlobUriBuilder is a built-in class from Azure.Storage.Blobs
@@ -71,5 +73,10 @@ public class AzureBlobService
         await file.CopyToAsync(memoryStream);
         memoryStream.Position = 0;
         return memoryStream;
+    }
+    
+    private static void NormalizeContainerName(FileCreateModel model)
+    {
+        model.ContainerName = model.ContainerName.ToLower().Replace(" ", "-");
     }
 }
