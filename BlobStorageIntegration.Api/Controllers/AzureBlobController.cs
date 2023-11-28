@@ -7,19 +7,12 @@ namespace BlobStorageIntegration.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AzureBlobController : ControllerBase
+public class AzureBlobController(AzureBlobService azureBlobService) : ControllerBase
 {
-    private readonly AzureBlobService _azureBlobService;
-
-    public AzureBlobController(AzureBlobService azureBlobService)
-    {
-        _azureBlobService = azureBlobService;
-    }
-    
     [HttpGet("download")]
     public async Task<IActionResult> DownloadFileAsync([Required]string uri , CancellationToken cancellationToken = default)
     {
-        var file = await _azureBlobService.DownloadFileAsync(uri , cancellationToken);
+        var file = await azureBlobService.DownloadFileAsync(uri , cancellationToken);
 
         // Explicitly setting Content-Disposition to force download for other file types.
         // Content-Disposition means that the file should be downloaded and not displayed in the browser.
@@ -38,7 +31,7 @@ public class AzureBlobController : ControllerBase
     [HttpGet("read")]
     public async Task<IActionResult> ReadFileAsync(string uri, CancellationToken cancellationToken = default)
     {
-        var model = await _azureBlobService.DownloadFileAsync(uri, cancellationToken);
+        var model = await azureBlobService.DownloadFileAsync(uri, cancellationToken);
 
         if (model.ContentType.Equals("application/pdf", StringComparison.OrdinalIgnoreCase))
         {
@@ -75,7 +68,7 @@ public class AzureBlobController : ControllerBase
     [HttpPost]
      public async Task<IActionResult> UploadFileAsync([FromForm]FileCreateModel model , CancellationToken cancellationToken = default)
      {
-         var response= await _azureBlobService.UploadFileAsync(model,cancellationToken);
+         var response= await azureBlobService.UploadFileAsync(model,cancellationToken);
          
          // Response will return the blob storage uri of the uploaded file.
          // In real cases, uploading file will be done in the background and saved inside a database and user will not be able to reach the blob storage uri.
