@@ -30,7 +30,7 @@ public class AzureBlobController : ControllerBase
             FileName = file.FileName,
             Inline = false  // false = prompt the user for download
         };
-        Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
+        Response.Headers.ContentDisposition = contentDisposition.ToString();
         
         return File(file.FileStream, file.ContentType);
     }
@@ -67,7 +67,7 @@ public class AzureBlobController : ControllerBase
             FileName = model.FileName,
             Inline = false  // false = prompt the user for download
         };
-        Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
+        Response.Headers.ContentDisposition = contentDisposition.ToString();
     
         return File(model.FileStream, model.ContentType);
     }

@@ -1,0 +1,21 @@
+
+g
+7BlobStorageIntegration.Api/Services/AzureBlobService.cs,6/5/6576e204bba552d0c876f934f52cb4ed0f93ded5
+c
+3BlobStorageIntegration.Api/Settings/BlobSettings.cs,c/e/ce0eee065c40aa303aa5edd3ae896164a93d086e
+Z
+*BlobStorageIntegration.Api/Bootstrapper.cs,5/8/58b7f247f5754fc23f3099ec8356e54a0e3e2d9e
+^
+.BlobStorageIntegration.Api/Models/FileModel.cs,b/7/b72fad3264fcee38c1e3ecc86f50d4683f8eeba9
+m
+=BlobStorageIntegration.Api/Controllers/AzureBlobController.cs,0/8/08f6b4d4d4d796476c14f9f5192d7d8dbea5d508
+g
+7BlobStorageIntegration.Api/appsettings.Development.json,2/0/205cc8dc1019ed94cdb53b8919281b509997362c
+[
++BlobStorageIntegration.Api/appsettings.json,8/b/8b887501431160aa33ff1b767296ab1967b87da5
+U
+%BlobStorageIntegration.Api/Program.cs,3/7/37d3ac3629f7fb152aea9c73553aca40bef10c03
+†
+VBlobStorageIntegration.Api/obj/Debug/net8.0/BlobStorageIntegration.Api.AssemblyInfo.cs,1/d/1deed20f8715187661d1edb66473233de4638c05
+ 
+pBlobStorageIntegration.Api/obj/Debug/net8.0/BlobStorageIntegration.Api.GeneratedMSBuildEditorConfig.editorconfig,7/1/71bd54388448358b5e9e9a8803b7f871f3edb33f
